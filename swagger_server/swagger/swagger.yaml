@@ -1,0 +1,1988 @@
+openapi: 3.0.0
+info:
+  title: bampli-api
+  description: The API for the Business Amplifier project.
+  contact:
+    name: Jose Motta
+    url: http://bampli.com
+    email: josemotta@bampli.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0-oas3
+servers:
+- url: https://virtserver.swaggerhub.com/motta/bampli/1.0.0-oas3
+  description: SwaggerHub API Auto Mocking
+- url: https://virtserver.swaggerhub.com/motta/bampli/1.0.0
+tags:
+- name: Company
+  description: Company operations
+- name: Facility
+  description: Facility operations
+- name: Cyclo
+  description: Cyclo operations
+paths:
+  /wip/:
+    get:
+      tags:
+      - Facility
+      summary: Load the list of Wips
+      description: Loads list of Wips
+      operationId: search_wips
+      parameters:
+      - name: size
+        in: query
+        description: Size of the page to retrieve.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+        x-example: 10
+      - name: page
+        in: query
+        description: Number of the page to retrieve.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+        x-example: 1
+      - name: sort
+        in: query
+        description: 'Order in which to retrieve the results. Multiple sort criteria
+          can be passed. Example: sort=name ASC,city DESC'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: name ASC
+      - name: name
+        in: query
+        description: Allows to filter the collections of result by name
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: George Street Brewery
+      - name: facility_id
+        in: query
+        description: Allows to filter the collections of result by facility_id
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: 0e8cedd0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+          headers:
+            X-Page-Count:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 1
+            X-Page-Number:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 1
+            X-Page-Size:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 25
+            X-Total-Count:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 2
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Wip'
+                x-content-type: application/json
+              examples:
+                response:
+                  value: |-
+                    [{
+                      "wip_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Intel BT200 Motherboard",
+                      "active": true,
+                      "facility_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }]
+        "400":
+          description: Status 400
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.facility_controller
+    post:
+      tags:
+      - Facility
+      summary: Create a new Wip
+      description: Adds a Wip
+      operationId: add_wip
+      requestBody:
+        $ref: '#/components/requestBodies/Wip'
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wip'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "wip_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Intel BT200 Motherboard",
+                      "active": true,
+                      "facility_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.facility_controller
+  /wip/{wipid}:
+    get:
+      tags:
+      - Facility
+      summary: Load an individual Wip
+      description: Loads a Wip
+      operationId: get_wip
+      parameters:
+      - name: wipid
+        in: path
+        description: Identifier of the Wip
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wip'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "wip_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Intel BT200 Motherboard",
+                      "active": true,
+                      "facility_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+        "400":
+          description: Status 400
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.facility_controller
+    put:
+      tags:
+      - Facility
+      summary: Update a Wip
+      description: Stores a Wip
+      operationId: update_wip
+      parameters:
+      - name: wipid
+        in: path
+        description: Identifier of the Wip
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      requestBody:
+        $ref: '#/components/requestBodies/Wip'
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wip'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "wip_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Intel BT200 Motherboard",
+                      "active": true,
+                      "facility_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.facility_controller
+    delete:
+      tags:
+      - Facility
+      summary: Delete a Wip
+      description: Deletes a Wip
+      operationId: delete_wip
+      parameters:
+      - name: wipid
+        in: path
+        description: Identifier of the Wip
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.facility_controller
+  /facility/:
+    get:
+      tags:
+      - Facility
+      summary: Load the list of Facilities
+      description: Loads list of Facilities
+      operationId: search_facility
+      parameters:
+      - name: size
+        in: query
+        description: Size of the page to retrieve.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+        x-example: 10
+      - name: page
+        in: query
+        description: Number of the page to retrieve.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+        x-example: 1
+      - name: sort
+        in: query
+        description: 'Order in which to retrieve the results. Multiple sort criteria
+          can be passed. Example: sort=name ASC,city DESC'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: name ASC
+      - name: name
+        in: query
+        description: Allows to filter the collections of result by name
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: George Street Brewery
+      - name: company_id
+        in: query
+        description: Allows to filter the collections of result by company_id
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: 0e8cedd0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+          headers:
+            X-Page-Count:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 1
+            X-Page-Number:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 1
+            X-Page-Size:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 25
+            X-Total-Count:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 2
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Facility'
+                x-content-type: application/json
+              examples:
+                response:
+                  value: |-
+                    [{
+                      "facility_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Intel BT200 Motherboard",
+                      "active": true,
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }]
+        "400":
+          description: Status 400
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.facility_controller
+    post:
+      tags:
+      - Facility
+      summary: Create a new Facility
+      description: Adds a Facility
+      operationId: add_facility
+      requestBody:
+        $ref: '#/components/requestBodies/Facility'
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Facility'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "facility_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Intel BT200 Motherboard",
+                      "active": true,
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.facility_controller
+  /facility/{facilityid}:
+    get:
+      tags:
+      - Facility
+      summary: Load an individual Facility
+      description: Loads a Facility
+      operationId: get_facility
+      parameters:
+      - name: facilityid
+        in: path
+        description: Identifier of the Facility
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Facility'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "facility_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Intel BT200 Motherboard",
+                      "active": true,
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+        "400":
+          description: Status 400
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.facility_controller
+    put:
+      tags:
+      - Facility
+      summary: Update a Facility
+      description: Stores a Facility
+      operationId: update_facility
+      parameters:
+      - name: facilityid
+        in: path
+        description: Identifier of the Facility
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      requestBody:
+        $ref: '#/components/requestBodies/Facility'
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Facility'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "facility_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Intel BT200 Motherboard",
+                      "active": true,
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.facility_controller
+    delete:
+      tags:
+      - Facility
+      summary: Delete a Facility
+      description: Deletes a Facility
+      operationId: delete_facility
+      parameters:
+      - name: facilityid
+        in: path
+        description: Identifier of the Facility
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.facility_controller
+  /cyclo/:
+    get:
+      tags:
+      - Cyclo
+      summary: Load the list of Cyclos
+      description: Loads list of Cyclos
+      operationId: search_cyclos
+      parameters:
+      - name: size
+        in: query
+        description: Size of the page to retrieve.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+        x-example: 10
+      - name: page
+        in: query
+        description: Number of the page to retrieve.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+        x-example: 1
+      - name: sort
+        in: query
+        description: Order in which to retrieve the results.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: name ASC
+      - name: name
+        in: query
+        description: Allows to filter the collections of result by name
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: George Street Brewery
+      - name: company_id
+        in: query
+        description: Allows to filter the collections of result by company_id
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: 0e8cedd0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+          headers:
+            X-Page-Count:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 1
+            X-Page-Number:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 1
+            X-Page-Size:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 25
+            X-Total-Count:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 2
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cyclo'
+                x-content-type: application/json
+              examples:
+                response:
+                  value: |-
+                    [{
+                      "cyclo_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "P&Q Production Line",
+                      "active": true,
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }]
+        "400":
+          description: Status 400
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.cyclo_controller
+    post:
+      tags:
+      - Cyclo
+      summary: Create a new Cyclo
+      description: Adds a Cyclo
+      operationId: add_cyclo
+      requestBody:
+        $ref: '#/components/requestBodies/Cyclo'
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cyclo'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "cyclo_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "P&Q Production Line",
+                      "active": true,
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.cyclo_controller
+  /cyclo/{cycloid}:
+    get:
+      tags:
+      - Cyclo
+      summary: Load an individual Cyclo
+      description: Loads a Cyclo
+      operationId: get_cyclo
+      parameters:
+      - name: cycloid
+        in: path
+        description: Identifier of the Cyclo
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cyclo'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "cyclo_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "P&Q Production Line",
+                      "active": true,
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+        "400":
+          description: Status 400
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.cyclo_controller
+    put:
+      tags:
+      - Cyclo
+      summary: Update a Cyclo
+      description: Stores a Cyclo
+      operationId: update_cyclo
+      parameters:
+      - name: cycloid
+        in: path
+        description: Identifier of the Cyclo
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      requestBody:
+        $ref: '#/components/requestBodies/Cyclo'
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cyclo'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "cyclo_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "P&Q Production Line",
+                      "active": true,
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.cyclo_controller
+    delete:
+      tags:
+      - Cyclo
+      summary: Delete a Cyclo
+      description: Deletes a Cyclo
+      operationId: delete_cyclo
+      parameters:
+      - name: cycloid
+        in: path
+        description: Identifier of the Cyclo
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.cyclo_controller
+  /stage/:
+    get:
+      tags:
+      - Cyclo
+      summary: Load the list of Stages
+      description: Loads list of Stages
+      operationId: search_stages
+      parameters:
+      - name: size
+        in: query
+        description: Size of the page to retrieve.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+        x-example: 10
+      - name: page
+        in: query
+        description: Number of the page to retrieve.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+        x-example: 1
+      - name: sort
+        in: query
+        description: 'Order in which to retrieve the results. Multiple sort criteria
+          can be passed. Example: sort=name ASC'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: name ASC
+      - name: name
+        in: query
+        description: Allows to filter the collections of result by name
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: Painting
+      - name: cyclo_id
+        in: query
+        description: Allows to filter the collections of result by cyclo_id
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: 0e8cedd0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+          headers:
+            X-Page-Count:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 1
+            X-Page-Number:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 1
+            X-Page-Size:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 25
+            X-Total-Count:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 2
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Stage'
+                x-content-type: application/json
+              examples:
+                response:
+                  value: |-
+                    [{
+                      "stage_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Painting",
+                      "active": true,
+                      "cyclo_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }]
+        "400":
+          description: Status 400
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.cyclo_controller
+    post:
+      tags:
+      - Cyclo
+      summary: Create a new Stage
+      description: Adds a Stage
+      operationId: add_stage
+      requestBody:
+        $ref: '#/components/requestBodies/Stage'
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stage'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "stage_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Painting",
+                      "active": true,
+                      "cyclo_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.cyclo_controller
+  /stage/{stageid}:
+    get:
+      tags:
+      - Cyclo
+      summary: Load an individual Stage
+      description: Loads a Stage
+      operationId: get_stage
+      parameters:
+      - name: stageid
+        in: path
+        description: Identifier of the Stage
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stage'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "stage_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Painting",
+                      "active": true,
+                      "cyclo_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+        "400":
+          description: Status 400
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.cyclo_controller
+    put:
+      tags:
+      - Cyclo
+      summary: Update a Stage
+      description: Stores a Stage
+      operationId: update_stage
+      parameters:
+      - name: stageid
+        in: path
+        description: Identifier of the Stage
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      requestBody:
+        $ref: '#/components/requestBodies/Stage'
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stage'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "stage_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Painting",
+                      "active": true,
+                      "cyclo_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.cyclo_controller
+    delete:
+      tags:
+      - Cyclo
+      summary: Delete a Stage
+      description: Deletes a Stage
+      operationId: delete_stage
+      parameters:
+      - name: stageid
+        in: path
+        description: Identifier of the Stage
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.cyclo_controller
+  /task/:
+    get:
+      tags:
+      - Cyclo
+      summary: Load the list of Tasks
+      description: Loads list of Tasks
+      operationId: search_tasks
+      parameters:
+      - name: size
+        in: query
+        description: Size of the page to retrieve.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+        x-example: 10
+      - name: page
+        in: query
+        description: Number of the page to retrieve.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+        x-example: 1
+      - name: sort
+        in: query
+        description: 'Order in which to retrieve the results. Multiple sort criteria
+          can be passed. Example: sort=name ASC,city DESC'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: name ASC
+      - name: name
+        in: query
+        description: Allows to filter the collections of result by name
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: George Street Brewery
+      - name: stage_id
+        in: query
+        description: Allows to filter the collections of result by stage_id
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: 0e8cedd0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+          headers:
+            X-Page-Count:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 1
+            X-Page-Number:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 1
+            X-Page-Size:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 25
+            X-Total-Count:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 2
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+                x-content-type: application/json
+              examples:
+                response:
+                  value: |-
+                    [{
+                      "task_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Paint",
+                      "active": true,
+                      "stage_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }]
+        "400":
+          description: Status 400
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.cyclo_controller
+    post:
+      tags:
+      - Cyclo
+      summary: Create a new Task
+      description: Adds a Task
+      operationId: add_task
+      requestBody:
+        $ref: '#/components/requestBodies/Task'
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "task_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Paint",
+                      "active": true,
+                      "stage_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.cyclo_controller
+  /task/{taskid}:
+    get:
+      tags:
+      - Cyclo
+      summary: Load an individual Task
+      description: Loads a Task
+      operationId: get_task
+      parameters:
+      - name: taskid
+        in: path
+        description: Identifier of the Task
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "task_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Paint",
+                      "active": true,
+                      "stage_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+        "400":
+          description: Status 400
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.cyclo_controller
+    put:
+      tags:
+      - Cyclo
+      summary: Update a Task
+      description: Stores a Task
+      operationId: update_task
+      parameters:
+      - name: taskid
+        in: path
+        description: Identifier of the Task
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      requestBody:
+        $ref: '#/components/requestBodies/Task'
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "task_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Paint",
+                      "active": true,
+                      "stage_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.cyclo_controller
+    delete:
+      tags:
+      - Cyclo
+      summary: Delete a Task
+      description: Deletes a Task
+      operationId: delete_task
+      parameters:
+      - name: taskid
+        in: path
+        description: Identifier of the Task
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.cyclo_controller
+  /product/:
+    get:
+      tags:
+      - Company
+      summary: Load the list of Products
+      description: Loads list of Products
+      operationId: search_products
+      parameters:
+      - name: size
+        in: query
+        description: Size of the page to retrieve.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+        x-example: 10
+      - name: page
+        in: query
+        description: Number of the page to retrieve.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+        x-example: 1
+      - name: sort
+        in: query
+        description: 'Order in which to retrieve the results. Multiple sort criteria
+          can be passed. Example: sort=name ASC,city DESC'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: name ASC
+      - name: name
+        in: query
+        description: Allows to filter the collections of result by name
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: George Street Brewery
+      - name: company_id
+        in: query
+        description: Allows to filter the collections of result by company_id
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: 0e8cedd0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+          headers:
+            X-Page-Count:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 1
+            X-Page-Number:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 1
+            X-Page-Size:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 25
+            X-Total-Count:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 2
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+                x-content-type: application/json
+              examples:
+                response:
+                  value: |-
+                    [{
+                      "product_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Intel BT200 Motherboard",
+                      "active": true,
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }]
+        "400":
+          description: Status 400
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.company_controller
+    post:
+      tags:
+      - Company
+      summary: Create a new Product
+      description: Adds a Product
+      operationId: add_product
+      requestBody:
+        $ref: '#/components/requestBodies/Product'
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "product_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Intel BT200 Motherboard",
+                      "active": true,
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.company_controller
+  /product/{productid}:
+    get:
+      tags:
+      - Company
+      summary: Load an individual Product
+      description: Loads a Product
+      operationId: get_product
+      parameters:
+      - name: productid
+        in: path
+        description: Identifier of the Product
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "product_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Intel BT200 Motherboard",
+                      "active": true,
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+        "400":
+          description: Status 400
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.company_controller
+    put:
+      tags:
+      - Company
+      summary: Update a Product
+      description: Stores a Product
+      operationId: update_product
+      parameters:
+      - name: productid
+        in: path
+        description: Identifier of the Product
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      requestBody:
+        $ref: '#/components/requestBodies/Product'
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "product_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "Intel BT200 Motherboard",
+                      "active": true,
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
+                    }
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.company_controller
+    delete:
+      tags:
+      - Company
+      summary: Delete a Product
+      description: Deletes a Product
+      operationId: delete_product
+      parameters:
+      - name: productid
+        in: path
+        description: Identifier of the Product
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.company_controller
+  /company/:
+    get:
+      tags:
+      - Company
+      summary: Load the list of Companies
+      description: Loads list of Companies
+      operationId: search_companies
+      parameters:
+      - name: size
+        in: query
+        description: Size of the page to retrieve.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+        x-example: 10
+      - name: page
+        in: query
+        description: Number of the page to retrieve.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+        x-example: 1
+      - name: sort
+        in: query
+        description: 'Order in which to retrieve the results. Multiple sort criteria
+          can be passed. Example: sort=name ASC,city DESC'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: name ASC
+      - name: name
+        in: query
+        description: Allows to filter the collections of result by the value of name
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        x-example: George Street Brewery
+      responses:
+        "200":
+          description: Status 200
+          headers:
+            X-Page-Count:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 1
+            X-Page-Number:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 1
+            X-Page-Size:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 25
+            X-Total-Count:
+              style: simple
+              explode: false
+              schema:
+                type: integer
+              x-example: 2
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+                x-content-type: application/json
+              examples:
+                response:
+                  value: |-
+                    [{
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "George Street Brewery",
+                      "address":{
+                        "street": "2 place de la Defense",
+                        "zipcode": "92053",
+                        "city": "Paris",
+                        "taxid": "29.691.807/0001-87"
+                    }]
+        "400":
+          description: Status 400
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.company_controller
+    post:
+      tags:
+      - Company
+      summary: Create a new Company
+      description: Adds a Company
+      operationId: add_company
+      requestBody:
+        $ref: '#/components/requestBodies/Company'
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "George Street Brewery",
+                      "address":{
+                        "street": "2 place de la Defense",
+                        "zipcode": "92053",
+                        "city": "Paris",
+                        "taxid": "29.691.807/0001-87"
+                    }
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.company_controller
+  /company/{companyid}:
+    get:
+      tags:
+      - Company
+      summary: Load an individual Company
+      description: Loads a Company
+      operationId: get_company
+      parameters:
+      - name: companyid
+        in: path
+        description: Identifier of the Company
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "George Street Brewery",
+                      "address":{
+                        "street": "2 place de la Defense",
+                        "zipcode": "92053",
+                        "city": "Paris",
+                        "taxid": "29.691.807/0001-87"
+                    }
+        "400":
+          description: Status 400
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.company_controller
+    put:
+      tags:
+      - Company
+      summary: Update a Company
+      description: Stores a Company
+      operationId: update_company
+      parameters:
+      - name: companyid
+        in: path
+        description: Identifier of the Company
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      requestBody:
+        $ref: '#/components/requestBodies/Company'
+      responses:
+        "200":
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+              examples:
+                response:
+                  value: |-
+                    {
+                      "company_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+                      "name": "George Street Brewery",
+                      "address":{
+                        "street": "2 place de la Defense",
+                        "zipcode": "92053",
+                        "city": "Paris",
+                        "taxid": "29.691.807/0001-87"
+                    }
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.company_controller
+    delete:
+      tags:
+      - Company
+      summary: Delete a Company
+      description: Deletes a Company
+      operationId: delete_company
+      parameters:
+      - name: companyid
+        in: path
+        description: Identifier of the Company
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        x-example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      responses:
+        "200":
+          description: Status 200
+      security:
+      - HTTP_BASIC: []
+      x-openapi-router-controller: swagger_server.controllers.company_controller
+components:
+  schemas:
+    Error:
+      required:
+      - code
+      type: object
+      properties:
+        code:
+          maximum: 599
+          minimum: 400
+          type: integer
+        description:
+          type: string
+          example: 'Bad query parameter [$size]: Invalid integer value [abc]'
+        reasonPhrase:
+          type: string
+          example: Bad Request
+      description: This general error structure is used throughout this API.
+      example: |-
+        {
+          "code": 400,
+          "description": "Bad query parameter [$size]: Invalid integer value [abc]",
+          "reasonPhrase": "Bad Request"
+        }
+    Product:
+      required:
+      - company_id
+      - name
+      - product_id
+      type: object
+      properties:
+        product_id:
+          type: string
+          description: Auto-generated primary key field
+          example: 0e8ffb10-ad98-11e6-bf2e-47644ada7c0f
+        name:
+          type: string
+          example: Fast Ethernet Adapter 10/100 Mbps
+        active:
+          type: boolean
+          default: true
+        company_id:
+          type: string
+          description: This property is a reference to a Company
+          example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      description: A representation of a Product.
+      example: |-
+        {
+          "product_id": "0e8dd830-ad98-11e6-bf2e-47644ada7c0f",
+          "name": "Fast Ethernet Adapter 10/100 Mbps",
+          "active": true,
+          "company_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        }
+    Wip:
+      required:
+      - facility_id
+      - name
+      - wip_id
+      type: object
+      properties:
+        wip_id:
+          type: string
+          description: Auto-generated primary key field
+          example: 0e8ffb10-ad98-11e6-bf2e-47644ada7c0f
+        name:
+          type: string
+          example: Fast Ethernet Adapter Panel
+        active:
+          type: boolean
+          default: true
+        facility_id:
+          type: string
+          description: This property is a reference to a Facility
+          example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      description: A representation of a Work-in-Process.
+      example: |-
+        {
+          "wip_id": "0e8dd830-ad98-11e6-bf2e-47644ada7c0f",
+          "name": "Fast Ethernet Adapter Panel",
+          "active": true,
+          "facility_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        }
+    Facility:
+      required:
+      - company_id
+      - facility_id
+      - name
+      type: object
+      properties:
+        facility_id:
+          type: string
+          description: Auto-generated primary key field
+          example: 0e8ffb10-ad98-11e6-bf2e-47644ada7c0f
+        name:
+          type: string
+          example: P&Q Facility
+        active:
+          type: boolean
+          default: true
+        company_id:
+          type: string
+          description: This property is a reference to a Company
+          example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      description: A representation of a Facility.
+      example: |-
+        {
+          "facility_id": "0e8dd830-ad98-11e6-bf2e-47644ada7c0f",
+          "name": "P&Q Facility",
+          "active": true,
+          "company_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        }
+    Cyclo:
+      required:
+      - company_id
+      - cyclo_id
+      - name
+      type: object
+      properties:
+        cyclo_id:
+          type: string
+          description: Auto-generated primary key field
+          example: 0e8ffb10-ad98-11e6-bf2e-47644ada7c0f
+        name:
+          type: string
+          example: P&Q Production Line
+        active:
+          type: boolean
+          default: true
+        company_id:
+          type: string
+          description: This property is a reference to a Company
+          example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      description: A representation of a Cyclo.
+      example: |-
+        {
+          "cyclo_id": "0e8dd830-ad98-11e6-bf2e-47644ada7c0f",
+          "name": "P&Q Production Line",
+          "active": true,
+          "company_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        }
+    Stage:
+      required:
+      - cyclo_id
+      - name
+      - stage_id
+      type: object
+      properties:
+        stage_id:
+          type: string
+          description: Auto-generated primary key field
+          example: 0e8ffb10-ad98-11e6-bf2e-47644ada7c0f
+        name:
+          type: string
+          example: Assembly Station
+        active:
+          type: boolean
+          default: true
+        cyclo_id:
+          type: string
+          description: This property is a reference to a Cyclo
+          example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      description: A representation of a Stage.
+      example: |-
+        {
+          "stage_id": "0e8dd830-ad98-11e6-bf2e-47644ada7c0f",
+          "name": "Assembly Station",
+          "active": true,
+          "cyclo_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        }
+    Task:
+      required:
+      - name
+      - stage_id
+      - task_id
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Auto-generated primary key field
+          example: 0e8ffb10-ad98-11e6-bf2e-47644ada7c0f
+        name:
+          type: string
+          example: Painting
+        active:
+          type: boolean
+          default: true
+        stage_id:
+          type: string
+          description: This property is a reference to a Stage
+          example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      description: A representation of a Task.
+      example: |-
+        {
+          "task_id": "0e8dd830-ad98-11e6-bf2e-47644ada7c0f",
+          "name": "Painting",
+          "active": true,
+          "stage_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        }
+    Contact:
+      required:
+      - company_id
+      - contact_id
+      - firstName
+      - lastName
+      type: object
+      properties:
+        contact_id:
+          type: string
+          description: Auto-generated primary key field
+          example: 0e8ffb10-ad98-11e6-bf2e-47644ada7c0f
+        firstName:
+          type: string
+          example: Kurt
+        lastName:
+          type: string
+          example: Williams
+        taxId:
+          type: string
+          example: 333.088.247/53
+        birthday:
+          type: integer
+          description: Birthday as unix timestamp (in ms)
+          format: int64
+          example: 173664000000
+        active:
+          type: boolean
+          default: true
+        company_id:
+          type: string
+          description: This property is a reference to a Company
+          example: 0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f
+      description: A representation of a Contact.
+      example: |-
+        {
+          "id": "0e8dd830-ad98-11e6-bf2e-47644ada7c0f",
+          "firstName": "John",
+          "lastName": "Smith",
+          "taxid": "333.088.247/53",
+          "birthday": 152755200000,
+          "active": true,
+          "company_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        }
+    Company:
+      required:
+      - address
+      - company_id
+      - name
+      type: object
+      properties:
+        company_id:
+          type: string
+          description: Auto-generated primary key field
+        name:
+          type: string
+        address:
+          $ref: '#/components/schemas/Company_address'
+      description: A representation of a Company.
+      example: |-
+        {
+          "company_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
+          "name": "George Street Brewery",
+          "address":{
+            "street": "2 place de la Defense",
+            "zipcode": "92053",
+            "city": "Paris",
+            "taxid": "29.591.807/0001-87"
+        }
+    Company_address:
+      required:
+      - city
+      - street
+      - taxId
+      - zipcode
+      type: object
+      properties:
+        street:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        zipcode:
+          pattern: '[0-9]*'
+          type: string
+        taxId:
+          type: string
+          example: 29.691.803/0001-80
+  requestBodies:
+    Task:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Task'
+      required: true
+    Stage:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Stage'
+      required: true
+    Cyclo:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Cyclo'
+      required: true
+    Facility:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Facility'
+      required: true
+    Wip:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Wip'
+      required: true
+    Product:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Product'
+      required: true
+    Contact:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Contact'
+      required: true
+    Company:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Company'
+      required: true
+  securitySchemes:
+    HTTP_BASIC:
+      type: http
+      description: All GET methods are public, meaning that *you can read all the
+        data*. Write operations require authentication and therefore are forbidden
+        to the general public.
+      scheme: basic
+      x-basicInfoFunc: swagger_server.controllers.authorization_controller.check_HTTP_BASIC
+
