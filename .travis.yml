@@ -6,4 +6,4 @@ python:
 # command to install dependencies
 install: "pip install -r requirements.txt"
 # command to run tests
-script: nosetests swagger-server/test/test_company_controller.py:test_get_company
+script: nosetests /swagger-server/test/test_company_controller.py:test_get_company
