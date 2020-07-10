@@ -20,6 +20,8 @@ class TestCompanyController(BaseTestCase):
         Create a new Company
         """
         body = Company()
+        body._company_id = "0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f"
+
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/company/',
             method='POST',
@@ -34,6 +36,7 @@ class TestCompanyController(BaseTestCase):
         Create a new Product
         """
         body = Product()
+        body._product_id = "0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f"
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/product/',
             method='POST',
