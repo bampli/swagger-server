@@ -1456,12 +1456,7 @@ paths:
                   value: |-
                     [{
                       "company_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
-                      "name": "George Street Brewery",
-                      "address":{
-                        "street": "2 place de la Defense",
-                        "zipcode": "92053",
-                        "city": "Paris",
-                        "taxid": "29.691.807/0001-87"
+                      "name": "George Street Brewery"
                     }]
         "400":
           description: Status 400
@@ -1490,12 +1485,7 @@ paths:
                   value: |-
                     {
                       "company_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
-                      "name": "George Street Brewery",
-                      "address":{
-                        "street": "2 place de la Defense",
-                        "zipcode": "92053",
-                        "city": "Paris",
-                        "taxid": "29.691.807/0001-87"
+                      "name": "George Street Brewery"
                     }
       x-openapi-router-controller: swagger_server.controllers.company_controller
   /company/{companyid}:
@@ -1527,12 +1517,7 @@ paths:
                   value: |-
                     {
                       "company_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
-                      "name": "George Street Brewery",
-                      "address":{
-                        "street": "2 place de la Defense",
-                        "zipcode": "92053",
-                        "city": "Paris",
-                        "taxid": "29.691.807/0001-87"
+                      "name": "George Street Brewery"
                     }
         "400":
           description: Status 400
@@ -1571,12 +1556,7 @@ paths:
                   value: |-
                     {
                       "company_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
-                      "name": "George Street Brewery",
-                      "address":{
-                        "street": "2 place de la Defense",
-                        "zipcode": "92053",
-                        "city": "Paris",
-                        "taxid": "29.691.807/0001-87"
+                      "name": "George Street Brewery"
                     }
       x-openapi-router-controller: swagger_server.controllers.company_controller
     delete:
@@ -1843,7 +1823,6 @@ components:
         }
     Company:
       required:
-      - address
       - company_id
       - name
       type: object
@@ -1853,39 +1832,12 @@ components:
           description: Auto-generated primary key field
         name:
           type: string
-        address:
-          $ref: '#/components/schemas/Company_address'
       description: A representation of a Company.
       example: |-
         {
           "company_id": "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f",
-          "name": "George Street Brewery",
-          "address":{
-            "street": "2 place de la Defense",
-            "zipcode": "92053",
-            "city": "Paris",
-            "taxid": "29.591.807/0001-87"
+          "name": "George Street Brewery"
         }
-    Company_address:
-      required:
-      - city
-      - street
-      - taxId
-      - zipcode
-      type: object
-      properties:
-        street:
-          type: string
-        street2:
-          type: string
-        city:
-          type: string
-        zipcode:
-          pattern: '[0-9]*'
-          type: string
-        taxId:
-          type: string
-          example: 29.691.803/0001-80
   requestBodies:
     Task:
       content:

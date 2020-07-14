@@ -4,7 +4,6 @@
 from __future__ import absolute_import
 # import models into model package
 from swagger_server.models.company import Company
-from swagger_server.models.company_address import CompanyAddress
 from swagger_server.models.contact import Contact
 from swagger_server.models.cyclo import Cyclo
 from swagger_server.models.error import Error
