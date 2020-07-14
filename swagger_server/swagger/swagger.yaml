@@ -14,8 +14,6 @@ servers:
 - url: https://virtserver.swaggerhub.com/motta/bampli/1.0.0-oas3
   description: SwaggerHub API Auto Mocking
 - url: https://virtserver.swaggerhub.com/motta/bampli/1.0.0
-security:
-- HTTP_BASIC: []
 tags:
 - name: Company
   description: Company operations
@@ -153,8 +151,6 @@ paths:
                       "active": true,
                       "facility_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
                     }
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.facility_controller
   /wip/{wipid}:
     get:
@@ -230,8 +226,6 @@ paths:
                       "active": true,
                       "facility_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
                     }
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.facility_controller
     delete:
       tags:
@@ -252,8 +246,6 @@ paths:
       responses:
         "200":
           description: Status 200
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.facility_controller
   /facility/:
     get:
@@ -384,8 +376,6 @@ paths:
                       "active": true,
                       "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
                     }
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.facility_controller
   /facility/{facilityid}:
     get:
@@ -461,8 +451,6 @@ paths:
                       "active": true,
                       "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
                     }
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.facility_controller
     delete:
       tags:
@@ -483,8 +471,6 @@ paths:
       responses:
         "200":
           description: Status 200
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.facility_controller
   /cyclo/:
     get:
@@ -614,8 +600,6 @@ paths:
                       "active": true,
                       "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
                     }
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.cyclo_controller
   /cyclo/{cycloid}:
     get:
@@ -691,8 +675,6 @@ paths:
                       "active": true,
                       "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
                     }
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.cyclo_controller
     delete:
       tags:
@@ -713,8 +695,6 @@ paths:
       responses:
         "200":
           description: Status 200
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.cyclo_controller
   /stage/:
     get:
@@ -845,8 +825,6 @@ paths:
                       "active": true,
                       "cyclo_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
                     }
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.cyclo_controller
   /stage/{stageid}:
     get:
@@ -922,8 +900,6 @@ paths:
                       "active": true,
                       "cyclo_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
                     }
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.cyclo_controller
     delete:
       tags:
@@ -944,8 +920,6 @@ paths:
       responses:
         "200":
           description: Status 200
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.cyclo_controller
   /task/:
     get:
@@ -1076,8 +1050,6 @@ paths:
                       "active": true,
                       "stage_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
                     }
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.cyclo_controller
   /task/{taskid}:
     get:
@@ -1153,8 +1125,6 @@ paths:
                       "active": true,
                       "stage_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
                     }
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.cyclo_controller
     delete:
       tags:
@@ -1175,8 +1145,6 @@ paths:
       responses:
         "200":
           description: Status 200
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.cyclo_controller
   /product/:
     get:
@@ -1307,8 +1275,6 @@ paths:
                       "active": true,
                       "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
                     }
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.company_controller
   /product/{productid}:
     get:
@@ -1384,8 +1350,6 @@ paths:
                       "active": true,
                       "company_id": "0e8cedd0-ad98-11e6-bf2e-47111ada7c0f"
                     }
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.company_controller
     delete:
       tags:
@@ -1406,8 +1370,6 @@ paths:
       responses:
         "200":
           description: Status 200
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.company_controller
   /company/:
     get:
@@ -1535,8 +1497,6 @@ paths:
                         "city": "Paris",
                         "taxid": "29.691.807/0001-87"
                     }
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.company_controller
   /company/{companyid}:
     get:
@@ -1618,8 +1578,6 @@ paths:
                         "city": "Paris",
                         "taxid": "29.691.807/0001-87"
                     }
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.company_controller
     delete:
       tags:
@@ -1640,8 +1598,6 @@ paths:
       responses:
         "200":
           description: Status 200
-      security:
-      - HTTP_BASIC: []
       x-openapi-router-controller: swagger_server.controllers.company_controller
 components:
   schemas:
@@ -1979,12 +1935,4 @@ components:
           schema:
             $ref: '#/components/schemas/Company'
       required: true
-  securitySchemes:
-    HTTP_BASIC:
-      type: http
-      description: All GET methods are public, meaning that *you can read all the
-        data*. Write operations require authentication and therefore are forbidden
-        to the general public.
-      scheme: basic
-      x-basicInfoFunc: swagger_server.controllers.authorization_controller.check_HTTP_BASIC
 
