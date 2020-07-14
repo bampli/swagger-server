@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  cyclo:
+    build: .
+    container_name: cyclo
+    # restart: always
+    volumes:
+      - ./:/usr/src/app
+    # secrets:
+    #   - db-password
+    ports:
+      - 8080:8080
+      - 5678:5678
+    networks:
+      - graph
+      # - front
+
+networks:
+  graph:
+    external: true
