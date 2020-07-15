@@ -20,6 +20,9 @@ class TestFacilityController(BaseTestCase):
         Create a new Facility
         """
         body = Facility()
+        body.facility_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.name = "P&Q Rio"
+
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/facility/',
             method='POST',
@@ -34,6 +37,9 @@ class TestFacilityController(BaseTestCase):
         Create a new Wip
         """
         body = Wip()
+        body.wip_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.name = "External case"
+
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/wip/',
             method='POST',
@@ -126,6 +132,9 @@ class TestFacilityController(BaseTestCase):
         Update a Facility
         """
         body = Facility()
+        body.facility_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.name = "P&Q Rio"
+
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/facility/{facilityid}'.format(facilityid='\"0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f\"'),
             method='PUT',
@@ -140,6 +149,9 @@ class TestFacilityController(BaseTestCase):
         Update a Wip
         """
         body = Wip()
+        body.wip_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.name = "External case"
+
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/wip/{wipid}'.format(wipid='\"0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f\"'),
             method='PUT',

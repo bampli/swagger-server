@@ -21,6 +21,9 @@ class TestCycloController(BaseTestCase):
         Create a new Cyclo
         """
         body = Cyclo()
+        body.cyclo_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.name = "P&Q Factory"
+
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/cyclo/',
             method='POST',
@@ -35,6 +38,9 @@ class TestCycloController(BaseTestCase):
         Create a new Stage
         """
         body = Stage()
+        body.stage_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.name = "Stage B"
+
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/stage/',
             method='POST',
@@ -49,6 +55,9 @@ class TestCycloController(BaseTestCase):
         Create a new Task
         """
         body = Task()
+        body.task_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.name = "Alloc resource"
+
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/task/',
             method='POST',
@@ -180,6 +189,9 @@ class TestCycloController(BaseTestCase):
         Update a Cyclo
         """
         body = Cyclo()
+        body.cyclo_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.name = "P&Q Factory"
+
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/cyclo/{cycloid}'.format(cycloid='\"0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f\"'),
             method='PUT',
@@ -194,6 +206,9 @@ class TestCycloController(BaseTestCase):
         Update a Stage
         """
         body = Stage()
+        body.stage_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.name = "Stage B"
+
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/stage/{stageid}'.format(stageid='\"0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f\"'),
             method='PUT',
@@ -208,6 +223,9 @@ class TestCycloController(BaseTestCase):
         Update a Task
         """
         body = Task()
+        body.task_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.name = "Alloc resource"
+
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/task/{taskid}'.format(taskid='\"0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f\"'),
             method='PUT',

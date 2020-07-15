@@ -20,6 +20,9 @@ class TestCompanyController(BaseTestCase):
         Create a new Company
         """
         body = Company()
+        body.company_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.name = "George Street Brewery"
+
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/company/',
             method='POST',
@@ -34,6 +37,9 @@ class TestCompanyController(BaseTestCase):
         Create a new Product
         """
         body = Product()
+        body.product_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.name = "Fast Ethernet Adapter 10/100/1000 Mbps"
+
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/product/',
             method='POST',
@@ -125,6 +131,9 @@ class TestCompanyController(BaseTestCase):
         Update a Company
         """
         body = Company()
+        body.company_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.name = "George Street Brewery"
+
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/company/{companyid}'.format(companyid='\"0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f\"'),
             method='PUT',
@@ -139,6 +148,9 @@ class TestCompanyController(BaseTestCase):
         Update a Product
         """
         body = Product()
+        body.product_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.name = "Fast Ethernet Adapter 10/100/1000 Mbps"
+
         response = self.client.open(
             '/motta/bampli/1.0.0-oas3/product/{productid}'.format(productid='\"0e8c9fb0-ad98-11e6-bf2e-47644ada7c0f\"'),
             method='PUT',
