@@ -22,6 +22,7 @@ class TestCycloController(BaseTestCase):
         """
         body = Cyclo()
         body.cyclo_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.company_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
         body.name = "P&Q Factory"
 
         response = self.client.open(
@@ -39,6 +40,7 @@ class TestCycloController(BaseTestCase):
         """
         body = Stage()
         body.stage_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.cyclo_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
         body.name = "Stage B"
 
         response = self.client.open(
@@ -56,6 +58,7 @@ class TestCycloController(BaseTestCase):
         """
         body = Task()
         body.task_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.stage_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
         body.name = "Alloc resource"
 
         response = self.client.open(
@@ -190,6 +193,7 @@ class TestCycloController(BaseTestCase):
         """
         body = Cyclo()
         body.cyclo_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.company_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
         body.name = "P&Q Factory"
 
         response = self.client.open(
@@ -207,6 +211,7 @@ class TestCycloController(BaseTestCase):
         """
         body = Stage()
         body.stage_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.cyclo_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
         body.name = "Stage B"
 
         response = self.client.open(
@@ -224,6 +229,7 @@ class TestCycloController(BaseTestCase):
         """
         body = Task()
         body.task_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.stage_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
         body.name = "Alloc resource"
 
         response = self.client.open(

@@ -21,6 +21,7 @@ class TestFacilityController(BaseTestCase):
         """
         body = Facility()
         body.facility_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.company_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
         body.name = "P&Q Rio"
 
         response = self.client.open(
@@ -38,6 +39,7 @@ class TestFacilityController(BaseTestCase):
         """
         body = Wip()
         body.wip_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.facility_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
         body.name = "External case"
 
         response = self.client.open(
@@ -133,6 +135,7 @@ class TestFacilityController(BaseTestCase):
         """
         body = Facility()
         body.facility_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.company_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
         body.name = "P&Q Rio"
 
         response = self.client.open(
@@ -150,6 +153,7 @@ class TestFacilityController(BaseTestCase):
         """
         body = Wip()
         body.wip_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.facility_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
         body.name = "External case"
 
         response = self.client.open(

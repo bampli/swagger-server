@@ -38,6 +38,7 @@ class TestCompanyController(BaseTestCase):
         """
         body = Product()
         body.product_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.company_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
         body.name = "Fast Ethernet Adapter 10/100/1000 Mbps"
 
         response = self.client.open(
@@ -149,6 +150,7 @@ class TestCompanyController(BaseTestCase):
         """
         body = Product()
         body.product_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
+        body.company_id = "0e8cedd0-ad98-11e6-bf2e-47644ada7c0f"
         body.name = "Fast Ethernet Adapter 10/100/1000 Mbps"
 
         response = self.client.open(
